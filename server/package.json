@@ -1,0 +1,37 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "newspaper server",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d10cn2btt/newspaper.git"
+  },
+  "keywords": [
+    "newspaper",
+    "server"
+  ],
+  "author": "truongbt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/d10cn2btt/newspaper/issues"
+  },
+  "homepage": "https://github.com/d10cn2btt/newspaper#readme",
+  "dependencies": {
+    "body-parser": "~1.15.1",
+    "cheerio": "latest",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
+    "jade": "~1.11.0",
+    "mongodb": "*",
+    "mongoose": "*",
+    "morgan": "~1.7.0",
+    "request": "latest",
+    "serve-favicon": "~2.3.0",
+    "underscore": "^1.8.3"
+  }
+}
