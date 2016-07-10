@@ -7,6 +7,7 @@ var request = require('request');
 var rp = require('request-promise');
 var cheerio = require('cheerio');// Basically jQuery for node.js
 var _ = require("underscore");
+var entities = require("entities");
 var helper = require("../helper/helper");
 
 router.get('/getData', function (req, res, next) {
@@ -28,7 +29,8 @@ router.get('/getData', function (req, res, next) {
                     json.thumb = $(this).find(".thumb img").attr('src');
                     promiseContent = getContent(urlItem);
                     promiseContent.then(function (res) {
-                        json.content = res;
+                        res = res.replace(/[\n\t\r]/g, "");
+                        json.content = res;//.replace(/[\"]/g, "'");
                     });
                     if (json.title !== "" && json.url !== "")
                         data[index] = json;
@@ -47,7 +49,7 @@ router.get('/getData', function (req, res, next) {
                 var writable = fs.createWriteStream('./data/output.json');
                 writable.write(data);
                 res.send(data);
-            }, 2000);
+            }, 10000);
 
         } else {
             res.json("error " + error);
@@ -59,17 +61,19 @@ function getContent(url) {
     var options = {
         uri: url,
         transform: function (body) {
-            return cheerio.load(body);
+            return cheerio.load(body, { decodeEntities: false });
         }
     };
     return rp(options)
         .then(function ($) {
             // Process html like you would with jQuery...
-            return $(".fck_detail").text().trim();
+            var content = $(".fck_detail").html().trim();
+            return content;
+            return entities.decodeHTML(content).trim();
         })
         .catch(function (err) {
             // Crawling failed or Cheerio choked...
-            return "Error when get content"+err;
+            return "Error when get content" + err;
         });
 }
 
