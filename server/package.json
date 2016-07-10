@@ -4,7 +4,7 @@
   "description": "newspaper server",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www --ignore data/"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "mongoose": "*",
     "morgan": "~1.7.0",
     "request": "latest",
+    "request-promise": "^3.0.0",
     "serve-favicon": "~2.3.0",
     "underscore": "^1.8.3"
   }

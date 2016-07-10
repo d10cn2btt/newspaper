@@ -7,6 +7,16 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var crawler = require('./routes/crawler');
+var mongoose = require('mongoose');
+var config = require('./config');
+//connect to mlab db newspaper
+// mongoose.connect(config.database, function (err) {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log("Connected to database");
+//     }
+// });
 
 var app = express();
 
