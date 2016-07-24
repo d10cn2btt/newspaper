@@ -4,7 +4,7 @@
   "description": "newspaper server",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www --ignore data/"
   },
   "repository": {
     "type": "git",
@@ -25,12 +25,15 @@
     "cheerio": "latest",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
+    "entities": "^1.1.1",
     "express": "~4.13.4",
     "jade": "~1.11.0",
+    "moment": "^2.14.1",
     "mongodb": "*",
     "mongoose": "*",
     "morgan": "~1.7.0",
     "request": "latest",
+    "request-promise": "^3.0.0",
     "serve-favicon": "~2.3.0",
     "underscore": "^1.8.3"
   }
