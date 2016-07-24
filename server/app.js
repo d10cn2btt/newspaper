@@ -7,16 +7,17 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var crawler = require('./routes/crawler');
+var api = require('./routes/api');
 var mongoose = require('mongoose');
 var config = require('./config');
 //connect to mlab db newspaper
-// mongoose.connect(config.database, function (err) {
-//     if (err) {
-//         console.log(err);
-//     } else {
-//         console.log("Connected to database");
-//     }
-// });
+mongoose.connect(config.database, function (err) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("Connected to database");
+    }
+});
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/crawler', crawler);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
