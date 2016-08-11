@@ -19,8 +19,11 @@ router.get('/getData', function (req, res, next) {
         if (!error) {
             var $ = cheerio.load(html);
             var data = new Array();
-            var logError = "";
+            var total = 0;
+            var count = 0;
             $("#news_home > li").each(function (index) {
+                total++;
+                console.log("total" + total);
                 var json = {id_post: "", title: "", url: "", short_des: "", thumb: "", content: "", source: SOURCE};
                 var urlItem = $(this).find("h3.title_news a.txt_link").attr("href");
                 var checkExist = false;
@@ -33,27 +36,36 @@ router.get('/getData', function (req, res, next) {
                     json.short_des = $(this).find(".news_lead").text().trim();
                     json.thumb = $(this).find(".thumb img").attr('src');
                     promiseContent = getContent(urlItem);
-                    promiseContent.then(function (res) {
-                        res = res.replace(/[\n\t\r]/g, "");
-                        json.content = res;//.replace(/[\"]/g, "'");
-                    });
-
                     var query = {
                         id_post: json.id_post,
                         source: SOURCE
                     };
-
                     Post.checkExists(query, function (error, post) {
-                        if (error) {
-                            helper.writeErrorLog("Error when check Exists" + error);
-                        }
-
                         if (_.size(post) < 1) {
-                            if (json.title !== "" && json.url !== "") {
-                                data[index] = json;
+                            if (error) {
+                                helper.writeErrorLog("Error when check Exists" + error);
                             }
+                            promiseContent.then(function (resdata) {
+                                resdata = resdata.replace(/[\n\t\r]/g, "");
+                                json.content = resdata;//.replace(/[\"]/g, "'");
+                                if (json.title !== "" && json.url !== "") {
+                                    data[index] = json;
+                                }
+                                count++;
+                                console.log("count" + count);
+                                if (count == total - 1) {
+                                    insertPost(data, res);
+                                }
+                            }).catch(function (error) {
+                                console.log("error :( " + error);
+                                count++;
+                            });
                         } else {
                             helper.writeErrorLog("Post already exists " + JSON.stringify(query));
+                            count++;
+                            if (count == total - 1) {
+                                insertPost(data, res);
+                            }
                         }
                     });
                 }
@@ -66,33 +78,34 @@ router.get('/getData', function (req, res, next) {
             //     .on('error', function (error) {
             //         console.log(error);
             //     });
-            setTimeout(function () {
-                // remove post null
-                data = _.compact(data);
-                Post.createManyPost(data, function (err, post){
-                    if (err) {
-                        helper.writeErrorLog("Error when inser many post " + err);
-                        var writeError = fs.createWriteStream('./data/error.txt', {flags: "a"});
-                        writeError.write(logError);
-                    }
-                });
-                data = JSON.stringify(data, null, 4);
-                var writable = fs.createWriteStream('./data/output.json');
-                writable.write(data);
-                res.send(data);
-            }, 10000);
-
         } else {
             res.json("error " + error);
         }
     });
 });
 
+function insertPost(data, res) {
+    data = _.compact(data);
+    if (_.size(data) >= 1) {
+        Post.createManyPost(data, function (err, post) {
+            if (err) {
+                helper.writeErrorLog("Error when inser many post " + err);
+            }
+        });
+    } else {
+        helper.writeErrorLog("All post were exist");
+    }
+    data = JSON.stringify(data, null, 4);
+    var writable = fs.createWriteStream('./data/output.json');
+    writable.write(data);
+    res.send(data);
+}
+
 function getContent(url) {
     var options = {
         uri: url,
         transform: function (body) {
-            return cheerio.load(body, { decodeEntities: false });
+            return cheerio.load(body, {decodeEntities: false});
         }
     };
     return rp(options)
