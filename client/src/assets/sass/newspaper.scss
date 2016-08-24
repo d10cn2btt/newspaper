@@ -1,5 +1,53 @@
-$white: 'white';
-h1 {
-  color: $white;
-  background: $white;
+.list-posts {
+  .post {
+    $imgHeight: 90px;
+    $titleHeight: 14px;
+    $numberLineDes: 3;
+    $desHeight: $imgHeight - $titleHeight - 10px;
+    $desLineHeight: $desHeight / $numberLineDes;
+    img {
+      width: $imgHeight;
+      float: left;
+    }
+    strong {
+      display: block;
+      padding-left: 110px;
+      padding-top: 0;
+      font-size: 17px;
+      color: #1f1f1f;
+      line-height: $titleHeight;
+      padding-bottom: 10px;
+    }
+    em {
+      padding-left: 110px;
+      display: block;
+      color: #666666;
+      font-style: normal;
+      line-height: $desLineHeight;
+      height: $desHeight;
+    }
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background: url("../images/loading1.gif");
+  background-repeat: no-repeat;
+  background-size: inherit;
+  background-color: white;
+  background-position: 50% 50%;
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 1024px;
+  }
 }
