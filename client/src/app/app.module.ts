@@ -6,19 +6,26 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
+import {HomeComponent} from './home';
+import {routing} from './app.routing';
+import {PostComponent} from './post/index';
+import {PostService} from './service/index';
 import {AppComponent} from './app.component';
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule
+        HttpModule,
+        routing
     ],
     declarations: [
-        AppComponent
+        AppComponent,
+        HomeComponent,
+        PostComponent
     ],
     providers: [
-        
+        PostService
     ],
     bootstrap: [AppComponent]
 })

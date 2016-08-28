@@ -36,7 +36,8 @@ const barrels:string[] = [
     'app/shared',
     'app/testcomponent',
     'app/post',
-    /** @cli-barrel */
+    'app/home',
+  /** @cli-barrel */
 ];
 
 const cliSystemConfigPackages:any = {};

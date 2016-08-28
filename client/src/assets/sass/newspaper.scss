@@ -1,30 +1,31 @@
 .list-posts {
   .post {
-    $imgHeight: 90px;
-    $titleHeight: 14px;
+    $imgWidth: 90px;
+    $titleHeight: 20px;
     $numberLineDes: 3;
-    $desHeight: $imgHeight - $titleHeight - 10px;
+    $desHeight: $imgWidth - $titleHeight - 10px;
     $desLineHeight: $desHeight / $numberLineDes;
+
+    $imgMgRight: 10px;
+    margin-bottom: $imgMgRight;
     img {
-      width: $imgHeight;
+      width: $imgWidth;
       float: left;
+      margin: 0 $imgMgRight $imgMgRight 0;
     }
     strong {
       display: block;
-      padding-left: 110px;
       padding-top: 0;
       font-size: 17px;
       color: #1f1f1f;
       line-height: $titleHeight;
-      padding-bottom: 10px;
+      padding-bottom: $imgMgRight/2;
     }
     em {
-      padding-left: 110px;
       display: block;
       color: #666666;
       font-style: normal;
       line-height: $desLineHeight;
-      height: $desHeight;
     }
     a {
       text-decoration: none;

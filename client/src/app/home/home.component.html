@@ -1,0 +1,9 @@
+<div class="row list-posts">
+    <div class="col-md-6 col-sm-6 col-xs-12 post" *ngFor="let post of posts">
+        <a href="#">
+            <img class="img-responsive" src="{{post.thumb}}" alt="{{post.title}}">
+            <strong>{{post.title}}</strong>
+            <em>{{post.short_des}}</em>
+        </a>
+    </div>
+</div>
