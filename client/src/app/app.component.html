@@ -1,19 +1,12 @@
+<div class="header header-dark">
+    <a href="javascript:void(0)" (click)="showLeftSidebar()" class="header-icon-1 show-left-sidebar"><i class="fa fa-navicon"></i></a>
+    <a href="javascript:void(0)" (click)="gotoHomepage()" class="header-logo"></a>
+</div>
 <div id="page-content" class="page-content">
     <div id="page-content-scroll">
-        <div class="content-strip">
-            <div class="strip-content">
-                <h4>News Article List 1</h4>
-                <p>Remember, it's just a template!</p>
-            </div>
-            <div class="overlay"></div>
-            <img class="preload-image" data-original="../assets/images/pictures/1.jpg" alt="img">
-        </div>
-
-        <div class="container">
-            <!-- <============= content here  -->
-            <router-outlet></router-outlet>
-            <!-- content end ===================> -->
-        </div>
+        <!-- <============= content here  -->
+        <router-outlet></router-outlet>
+        <!-- content end ===================> -->
         <div class="footer footer-dark">
             <div class="footer-content">
                 <a href="#" class="footer-logo"></a>

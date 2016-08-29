@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import {PostService} from '../service/index';
 import {Post} from '../post';
+declare var $: any;
 
 @Component({
     moduleId: module.id,
@@ -17,6 +18,11 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit():void {
+        $(".preload-image").lazyload({
+            threshold : 100,
+            effect : "fadeIn",
+            container: $("#page-content-scroll")
+        });
         this.postService.getPosts()
             .then(response => {
                 console.log(response);

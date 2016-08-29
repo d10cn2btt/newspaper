@@ -8,13 +8,18 @@ import {PostComponent} from './post/index';
 
 const appRoutes:Routes = [
     {
-        path: '',
+        path: 'homepage',
         component: HomeComponent
     },
     {
         path: 'detail/:slug',
         component: PostComponent
-    }
+    },
+    {
+        path: '',
+        redirectTo: 'homepage',
+        pathMatch: 'full'
+    },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

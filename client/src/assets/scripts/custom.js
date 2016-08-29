@@ -3,18 +3,8 @@ $(document).ready(function () {
     function init_template() {//Class is vital to run AJAX Pages
         //Sidebar Settings
 
-        $('.show-left-sidebar').click(function () {
-            $('.sidebar-scroll-left').toggleClass('perspective-left');
-            $('.sidebar-left').toggleClass('perspective-2-left');
-            $('.page-content, .header, .footer-menu, .material-menu').toggleClass('perspective-3-left');
-            $('.share-bottom-tap-close').removeClass('share-bottom-tap-close-active');
-            $('.share-bottom').removeClass('active-share-bottom');
-            $('.show-header-menu, .show-modal-menu').toggleClass('no-pointer');
-            $('.back-to-top-badge').removeClass('back-to-top-badge-visible');
-            $('.header-menu').toggleClass('no-visibility');
-            $('.header-menu-overlay').hide();
-            $('.header-menu').removeClass('header-menu-active');
-            $('.show-header-menu').removeClass('header-rotate');
+        $('.show-left-sidebar').on('click', function () {
+            
         });
 
         $('.show-right-sidebar').click(function () {

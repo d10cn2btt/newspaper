@@ -1,9 +1,20 @@
-<div class="row list-posts">
-    <div class="col-md-6 col-sm-6 col-xs-12 post" *ngFor="let post of posts">
-        <a [routerLink]="['/detail', post.url | url]">
-            <img class="img-responsive" src="{{post.thumb}}" alt="{{post.title}}">
-            <strong>{{post.title}}</strong>
-            <em>{{post.short_des}}</em>
-        </a>
+<div class="content-strip">
+    <div class="strip-content">
+        <h4>News Article List 1</h4>
+        <p>Remember, it's just a template!</p>
+    </div>
+    <div class="overlay"></div>
+    <img class="preload-image" data-original="../assets/images/pictures/1.jpg" alt="img">
+</div>
+
+<div class="container">
+    <div class="row list-posts">
+        <div class="col-md-6 col-sm-6 col-xs-12 post" *ngFor="let post of posts">
+            <a [routerLink]="['/detail', post.url | url]">
+                <img class="img-responsive" src="{{post.thumb}}" alt="{{post.title}}">
+                <strong>{{post.title}}</strong>
+                <em>{{post.short_des}}</em>
+            </a>
+        </div>
     </div>
 </div>
