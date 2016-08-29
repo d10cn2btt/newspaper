@@ -24,6 +24,18 @@ export class AppComponent implements OnInit {
         });
         $('#page-content, .landing-page').addClass('fadeIn show-containers');
         $(".loading").remove();
+        $('.close-sidebar, #page-content, .menu-item, .submenu-item').not('.show-submenu').click(function () {
+					$('.sidebar-scroll-left').removeClass('perspective-left'); 
+		      $('.sidebar-left').removeClass('perspective-2-left'); 
+		      $('.page-content, .header').removeClass('perspective-3-left');
+		      $('.sidebar-scroll-right').removeClass('perspective-right'); 
+		      $('.sidebar-right').removeClass('perspective-2-right'); 
+		      $('.page-content, .header').removeClass('perspective-3-right'); 
+		      $('.footer-menu, .material-menu').removeClass('perspective-3-right'); 
+		      $('.footer-menu, .material-menu').removeClass('perspective-3-left'); 
+		      $('.show-header-menu, .show-modal-menu').removeClass('no-pointer');
+		      $('.header-menu').removeClass('no-visibility');
+        });
     }
 
     gotoHomepage() {
