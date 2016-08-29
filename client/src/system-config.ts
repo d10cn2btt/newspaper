@@ -8,10 +8,16 @@
  * User Configuration.
  **********************************************************************************************/
 /** Map relative paths to URLs. */
-const map:any = {};
+const map:any = {
+    'underscore': 'vendor/underscore/underscore.js'
+};
 
 /** User packages configuration. */
-const packages:any = {};
+const packages:any = {
+    'underscore':{
+        format: 'cjs'
+    }
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /***********************************************************************************************

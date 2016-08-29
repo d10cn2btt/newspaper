@@ -23,8 +23,8 @@ export class PostService {
     }
     
     getIdPostFromUrl(url: string) {
-        var patt = /^([a-z-]{1,})-([0-9]*).(.*)$/;
-        var result = url.match(patt);
+        var reg = /([a-zA-Z-]{1,})-([0-9]{1,}).html$/g;
+        var result = reg.exec(url);
         return result[2];
     }
 

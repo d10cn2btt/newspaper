@@ -11,6 +11,7 @@ import {routing} from './app.routing';
 import {PostComponent} from './post/index';
 import {PostService} from './service/index';
 import {AppComponent} from './app.component';
+import {UrlPipe} from './pipe/index';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import {AppComponent} from './app.component';
     declarations: [
         AppComponent,
         HomeComponent,
-        PostComponent
+        PostComponent,
+        UrlPipe,
     ],
     providers: [
         PostService
@@ -31,5 +33,5 @@ import {AppComponent} from './app.component';
 })
 
 export class AppModule {
-    
+
 }
