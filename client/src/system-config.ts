@@ -43,6 +43,7 @@ const barrels:string[] = [
     'app/testcomponent',
     'app/post',
     'app/home',
+  'app/list-post',
   /** @cli-barrel */
 ];
 
