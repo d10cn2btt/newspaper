@@ -1,7 +1,7 @@
 import {Component, OnInit, Compiler, ViewContainerRef, ViewChild, ComponentRef, ComponentFactory, ComponentFactoryResolver} from '@angular/core';
 import {PostService} from '../service/index';
 import {Post} from '../post';
-import {PostComponent} from '../post/index';
+import {ListPostComponent} from '../list-post';
 
 declare var $: any;
 
@@ -10,7 +10,7 @@ declare var $: any;
     selector: 'app-home',
     templateUrl: 'home.component.html',
     styleUrls: ['home.component.css'],
-    entryComponents: [PostComponent]
+    entryComponents: [ListPostComponent]
 })
 export class HomeComponent implements OnInit {
     posts:Post[] = [];
@@ -18,24 +18,14 @@ export class HomeComponent implements OnInit {
     private componentFactory: ComponentFactory<any>;
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, compiler: Compiler, private postService:PostService) {
-        this.componentFactory = componentFactoryResolver.resolveComponentFactory(PostComponent);
+        this.componentFactory = componentFactoryResolver.resolveComponentFactory(ListPostComponent);
         //this.componentFactory = compiler.compileComponentSync(PostComponent);
     }
 
-    addItem () {
+    getMorePosts () {
         this.viewContainerRef.createComponent(this.componentFactory, 0);
     }
     
     ngOnInit():void {
-        $(".preload-image").lazyload({
-            threshold : 100,
-            effect : "fadeIn",
-            container: $("#page-content-scroll")
-        });
-        this.postService.getPosts()
-            .then(response => {
-                console.log(response);
-                this.posts = response;
-            });
     }
 }

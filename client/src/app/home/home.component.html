@@ -9,14 +9,8 @@
 
 <div class="container">
     <div class="row list-posts">
-        <div class="col-md-6 col-sm-6 col-xs-12 post" *ngFor="let post of posts">
-            <a [routerLink]="['/detail', post.url | url]">
-                <img class="img-responsive" src="{{post.thumb}}" alt="{{post.title}}">
-                <strong>{{post.title}}</strong>
-                <em>{{post.short_des}}</em>
-            </a>
-        </div>
+        <app-list-post></app-list-post>
+        <div #placeholder></div>
     </div>
-    <button (click)="addItem()">add hello</button>
-    <div #placeholder></div>
+    <button (click)="getMorePosts()" class="button button-center button-blue button-fullscreen">More news</button>
 </div>

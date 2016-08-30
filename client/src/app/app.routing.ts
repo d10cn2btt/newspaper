@@ -9,7 +9,7 @@ import {PostComponent} from './post/index';
 const appRoutes:Routes = [
     {
         path: 'homepage',
-        component: HomeComponent
+        component: HomeComponent,
     },
     {
         path: 'detail/:slug',

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-
 import {ActivatedRoute, Params, Router} from '@angular/router';
+
 import {Post} from '../post';
 import {PostService} from '../service/index';
 
@@ -8,7 +8,7 @@ import {PostService} from '../service/index';
     moduleId: module.id,
     selector: 'app-post',
     templateUrl: 'post.component.html',
-    styleUrls: ['post.component.css']
+    styleUrls: ['post.component.css'],
 })
 export class PostComponent implements OnInit {
 
@@ -16,6 +16,10 @@ export class PostComponent implements OnInit {
     }
 
     ngOnInit():void {
+        this.router.events.subscribe((path) => {
+            window.scrollTo(0, 50);
+        });
+
         this.route.params.forEach((params:Params) => {
             if (params['slug'] !== undefined) {
                 // Route parameters are always strings.
@@ -24,9 +28,13 @@ export class PostComponent implements OnInit {
                 console.log(this.postService.getIdPostFromUrl(slug));
 
             } else {
-                this.router.navigate(['dasboard']);
+                this.router.navigate(['dasboard', {}, {position: (0, 600)}]);
             }
         })
     }
 
+    gotoTop():void {
+        console.log(window);
+        window.scrollTo(0, 50);
+    }
 }

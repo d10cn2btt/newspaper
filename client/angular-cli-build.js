@@ -32,7 +32,8 @@ module.exports = function (defaults) {
             'reflect-metadata/**/*.+(ts|js|js.map)',
             'rxjs/**/*.+(js|js.map)',
             '@angular/**/*.+(js|js.map)',
-            'underscore/underscore.js'
+            'underscore/underscore.js',
+            'angular2-auto-scroll/lib/angular2-auto-scroll.directive.js'
         ]
     });
     return mergeTrees([appTree, sass], { overwrite: true });
