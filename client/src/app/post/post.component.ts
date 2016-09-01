@@ -16,9 +16,7 @@ export class PostComponent implements OnInit {
     }
 
     ngOnInit():void {
-        this.router.events.subscribe((path) => {
-            window.scrollTo(0, 50);
-        });
+        window.scrollTo(0, 0);
 
         this.route.params.forEach((params:Params) => {
             if (params['slug'] !== undefined) {
@@ -31,10 +29,5 @@ export class PostComponent implements OnInit {
                 this.router.navigate(['dasboard', {}, {position: (0, 600)}]);
             }
         })
-    }
-
-    gotoTop():void {
-        console.log(window);
-        window.scrollTo(0, 50);
     }
 }

@@ -496,8 +496,8 @@ $(document).ready(function () {
         });
 
         //Show Back To Home When Scrolling
-        $('#page-content-scroll').on('scroll', function () {
-            var total_scroll_height = $('#page-content-scroll')[0].scrollHeight
+        $(window).on('scroll', function () {
+            var total_scroll_height = $(window)[0].scrollHeight
             var inside_header = ($(this).scrollTop() <= 200);
             var passed_header = ($(this).scrollTop() >= 0); //250
             var footer_reached = ($(this).scrollTop() >= (total_scroll_height - ($(window).height() + 100 )));
@@ -515,7 +515,7 @@ $(document).ready(function () {
         //Back to top Badge
         $('.back-to-top-badge, .back-to-top').click(function (e) {
             e.preventDefault();
-            $('#page-content-scroll').animate({
+            $(window).animate({
                 scrollTop: 0
             }, 250);
         });

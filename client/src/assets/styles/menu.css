@@ -346,20 +346,20 @@ html, body {
 } 
 
 #page-content{
-    position:fixed;
+    /*position:fixed;*/
     z-index:9;
     overflow:hidden;
 }
 
-#page-content-scroll{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0; /* Decrease this value for cross-browser compatibility */
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-}
+/*#page-content-scroll{*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0; !* Decrease this value for cross-browser compatibility *!*/
+    /*overflow: auto;*/
+    /*-webkit-overflow-scrolling: touch;*/
+/*}*/
 
 
 .sidebar-left{
