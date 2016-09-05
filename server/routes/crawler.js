@@ -13,6 +13,15 @@ var Post = require('../model/post');
 var SOURCE = 'thethao.vnexpress.net';
 var moment = require('moment');
 
+router.get('/testGetContent', function (req, res, next) {
+    var urlItem = 'http://thethao.vnexpress.net/tin-tuc/serie-a/crespo-higuain-dang-gia-hon-pogba-3463440.html';
+    promiseContent = getContent(urlItem);
+    promiseContent.then(function (resdata) {
+        resdata = resdata.replace(/[\n\t\r]/g, "");
+        res.json(resdata);
+    });
+});
+
 router.get('/getData', function (req, res, next) {
     url = 'http://thethao.vnexpress.net/';
     request(url, function (error, response, html) {
@@ -35,7 +44,6 @@ router.get('/getData', function (req, res, next) {
                     json.url = encodeURI(urlItem);
                     json.short_des = $(this).find(".news_lead").text().trim();
                     json.thumb = $(this).find(".thumb img").attr('src');
-                    promiseContent = getContent(urlItem);
                     var query = {
                         id_post: json.id_post,
                         source: SOURCE
@@ -45,6 +53,7 @@ router.get('/getData', function (req, res, next) {
                             if (error) {
                                 helper.writeErrorLog("Error when check Exists" + error);
                             }
+                            promiseContent = getContent(urlItem);
                             promiseContent.then(function (resdata) {
                                 resdata = resdata.replace(/[\n\t\r]/g, "");
                                 json.content = resdata;//.replace(/[\"]/g, "'");
@@ -54,7 +63,8 @@ router.get('/getData', function (req, res, next) {
                                 count++;
                                 console.log("count" + count);
                                 if (count == total - 1) {
-                                    insertPost(data, res);
+                                    res.send(data);
+                                    // insertPost(data, res);
                                 }
                             }).catch(function (error) {
                                 console.log("error :( " + error);
@@ -64,7 +74,8 @@ router.get('/getData', function (req, res, next) {
                             helper.writeErrorLog("Post already exists " + JSON.stringify(query));
                             count++;
                             if (count == total - 1) {
-                                insertPost(data, res);
+                                res.send(data);
+                                // insertPost(data, res);
                             }
                         }
                     });
