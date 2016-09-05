@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {Post} from '../post';
 import {PostService} from '../service/index';
 
 @Component({
@@ -12,22 +11,22 @@ import {PostService} from '../service/index';
 })
 export class PostComponent implements OnInit {
 
-    constructor(private postService:PostService, private route:ActivatedRoute, public router:Router) {
+    constructor(private postService: PostService, private route: ActivatedRoute, public router: Router) {
     }
 
-    ngOnInit():void {
+    ngOnInit(): void {
         window.scrollTo(0, 0);
 
-        this.route.params.forEach((params:Params) => {
+        this.route.params.forEach((params: Params) => {
             if (params['slug'] !== undefined) {
                 // Route parameters are always strings.
                 // So we convert the route parameter value to a number with the JavaScript (+) operator
-                var slug = params['slug'];
+                let slug = params['slug'];
                 console.log(this.postService.getIdPostFromUrl(slug));
 
             } else {
                 this.router.navigate(['dasboard', {}, {position: (0, 600)}]);
             }
-        })
+        });
     }
 }

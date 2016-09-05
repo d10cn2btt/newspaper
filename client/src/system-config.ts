@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // SystemJS configuration file, see links for more information
 // https://github.com/systemjs/systemjs
@@ -8,14 +8,14 @@
  * User Configuration.
  **********************************************************************************************/
 /** Map relative paths to URLs. */
-const map:any = {
+const map: any = {
     'underscore': 'vendor/underscore/underscore.js',
-    'angular2-auto-scroll' : 'vendor/angular2-auto-scroll'
+    'angular2-auto-scroll': 'vendor/angular2-auto-scroll'
 };
 
 /** User packages configuration. */
-const packages:any = {
-    'underscore':{
+const packages: any = {
+    'underscore': {
         format: 'cjs'
     },
     'angular2-auto-scroll': {
@@ -27,7 +27,7 @@ const packages:any = {
 /***********************************************************************************************
  * Everything underneath this line is managed by the CLI.
  **********************************************************************************************/
-const barrels:string[] = [
+const barrels: string[] = [
     // Angular specific barrels.
     '@angular/core',
     '@angular/common',
@@ -47,17 +47,17 @@ const barrels:string[] = [
     'app/testcomponent',
     'app/post',
     'app/home',
-  'app/list-post',
-  /** @cli-barrel */
+    'app/list-post',
+    /** @cli-barrel */
 ];
 
-const cliSystemConfigPackages:any = {};
-barrels.forEach((barrelName:string) => {
+const cliSystemConfigPackages: any = {};
+barrels.forEach((barrelName: string) => {
     cliSystemConfigPackages[barrelName] = {main: 'index'};
 });
 
 /** Type declaration for ambient System. */
-declare var System:any;
+declare var System: any;
 
 // Apply the CLI SystemJS configuration.
 System.config({

@@ -1,7 +1,6 @@
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Params, Router} from '@angular/router';
-
-declare var $:any;
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+declare var $: any;
 
 @Component({
     moduleId: module.id,
@@ -9,24 +8,24 @@ declare var $:any;
     templateUrl: 'app.component.html',
     styleUrls: ['app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
     title = 'app works!btt';
 
-    constructor(public router:Router) {
-    
+    constructor(public router: Router) {
     }
 
     ngOnInit() {
-        $(".preload-image").lazyload({
+        $('.preload-image').lazyload({
             threshold: 100,
-            effect: "fadeIn",
-            container: $("#page-content-scroll")
+            effect: 'fadeIn',
+            container: $('#page-content-scroll')
         });
         $('#page-content, .landing-page').addClass('fadeIn show-containers');
-        $(".loading").remove();
+        $('.loading').remove();
     }
 
     gotoHomepage() {
-        this.router.navigate(['homepage']);
+        let anchor = location.hash.replace('#', '');
+        this.router.navigate(['homepage'], {fragment: anchor});
     }
 }

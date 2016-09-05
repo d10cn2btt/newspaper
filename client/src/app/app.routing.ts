@@ -6,7 +6,7 @@ import {Routes, RouterModule}   from '@angular/router';
 import {HomeComponent} from './home';
 import {PostComponent} from './post/index';
 
-const appRoutes:Routes = [
+const appRoutes: Routes = [
     {
         path: 'homepage',
         component: HomeComponent,

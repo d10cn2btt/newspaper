@@ -6,8 +6,8 @@ import * as _ from 'underscore';
 })
 export class UrlPipe implements PipeTransform {
 
-    transform(value:string, args?:any):any {
-        var arUrl = value.split('/');
+    transform(value: string, args?: any): any {
+        let arUrl = value.split('/');
         return _.last(arUrl);
     }
 

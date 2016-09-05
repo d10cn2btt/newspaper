@@ -1,4 +1,4 @@
-import {Component, OnInit, Compiler, ViewContainerRef, ViewChild, ComponentRef, ComponentFactory, ComponentFactoryResolver} from '@angular/core';
+import {Component, OnInit, Compiler, ViewContainerRef, ViewChild, ComponentFactory, ComponentFactoryResolver} from '@angular/core';
 import {PostService} from '../service/index';
 import {Post} from '../post';
 import {ListPostComponent} from '../list-post';
@@ -13,19 +13,26 @@ declare var $: any;
     entryComponents: [ListPostComponent]
 })
 export class HomeComponent implements OnInit {
-    posts:Post[] = [];
+    posts: Post[] = [];
+    hashPage: number = 1;
     @ViewChild('placeholder', {read: ViewContainerRef}) viewContainerRef;
     private componentFactory: ComponentFactory<any>;
 
-    constructor(componentFactoryResolver: ComponentFactoryResolver, compiler: Compiler, private postService:PostService) {
+    constructor(componentFactoryResolver: ComponentFactoryResolver, compiler: Compiler, private postService: PostService) {
         this.componentFactory = componentFactoryResolver.resolveComponentFactory(ListPostComponent);
-        //this.componentFactory = compiler.compileComponentSync(PostComponent);
+        // this.componentFactory = compiler.compileComponentSync(PostComponent);
     }
 
-    getMorePosts () {
+    ngOnInit(): void {
+        if (location.hash != "" && !isNaN(parseInt(location.hash.replace('#', '')))) {
+            this.hashPage = parseInt(location.hash.replace('#', ''));
+        }
+    }
+
+    getMorePosts() {
+        this.hashPage++;
+        location.hash = '#' + this.hashPage;
         this.viewContainerRef.createComponent(this.componentFactory, 0);
     }
-    
-    ngOnInit():void {
-    }
+
 }

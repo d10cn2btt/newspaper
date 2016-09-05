@@ -32,7 +32,7 @@ $(document).ready(function () {
         });
 
         $(document).delegate('.close-sidebar, #page-content, .menu-item, .submenu-item', 'click', function (e) {
-        // $('.close-sidebar, #page-content, .menu-item, .submenu-item').not('.show-submenu').click(function () {
+            // $('.close-sidebar, #page-content, .menu-item, .submenu-item').not('.show-submenu').click(function () {
             $('.sidebar-scroll-left').removeClass('perspective-left');
             $('.sidebar-left').removeClass('perspective-2-left');
             $('.page-content, .header').removeClass('perspective-3-left');
