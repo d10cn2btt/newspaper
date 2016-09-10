@@ -38,8 +38,8 @@ var postSchema = mongoose.Schema({
 var postObject = module.exports = mongoose.model('post', postSchema);
 
 //get post for api
-module.exports.getPosts = function (limit, callback) {
-    postObject.find(callback).limit(limit);
+module.exports.getPosts = function (start, limit, callback) {
+    postObject.find(callback).select('title url short_des thumb id_post created_at').skip(start).limit(limit).sort([['created_at', 'descending']]);
 };
 
 //add many article

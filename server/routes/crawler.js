@@ -14,7 +14,8 @@ var SOURCE = 'thethao.vnexpress.net';
 var moment = require('moment');
 
 router.get('/testGetContent', function (req, res, next) {
-    var urlItem = 'http://thethao.vnexpress.net/tin-tuc/serie-a/crespo-higuain-dang-gia-hon-pogba-3463440.html';
+    // var urlItem = 'http://thethao.vnexpress.net/photo/hau-truong/ve-dep-cua-cac-wags-truoc-tran-derby-manchester-3465112.html';
+    var urlItem = 'http://thethao.vnexpress.net/tin-tuc/cac-giai-khac/than-dong-sanches-ra-mat-nhat-nhoa-bayern-thang-nhoc-o-vong-hai-3465867.html';
     promiseContent = getContent(urlItem);
     promiseContent.then(function (resdata) {
         resdata = resdata.replace(/[\n\t\r]/g, "");
@@ -63,8 +64,8 @@ router.get('/getData', function (req, res, next) {
                                 count++;
                                 console.log("count" + count);
                                 if (count == total - 1) {
-                                    res.send(data);
-                                    // insertPost(data, res);
+                                    res.json(data);
+                                    insertPost(data, res);
                                 }
                             }).catch(function (error) {
                                 console.log("error :( " + error);
@@ -74,8 +75,8 @@ router.get('/getData', function (req, res, next) {
                             helper.writeErrorLog("Post already exists " + JSON.stringify(query));
                             count++;
                             if (count == total - 1) {
-                                res.send(data);
-                                // insertPost(data, res);
+                                res.json(data);
+                                insertPost(data, res);
                             }
                         }
                     });
@@ -109,7 +110,7 @@ function insertPost(data, res) {
     data = JSON.stringify(data, null, 4);
     var writable = fs.createWriteStream('./data/output.json');
     writable.write(data);
-    res.send(data);
+    // res.send(data);
 }
 
 function getContent(url) {
@@ -121,14 +122,21 @@ function getContent(url) {
     };
     return rp(options)
         .then(function ($) {
+            var contentElement = "";
+            if ($("#article_content").html() != null) {
+                // article photos
+                contentElement = "#article_content";
+            } else {
+                contentElement = ".fck_detail";
+            }
+
             // Process html like you would with jQuery...
-            var content = $(".fck_detail").html().trim();
-            return content;
-            return entities.decodeHTML(content).trim();
+            return $(contentElement).html().trim();
+            // return entities.decodeHTML(content).trim();
         })
         .catch(function (err) {
             // Crawling failed or Cheerio choked...
-            return "Error when get content" + err;
+            return "Error when get content : " + err;
         });
 }
 
