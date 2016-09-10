@@ -8,13 +8,18 @@ var Post = require('../model/post');
 var helper = require("../helper/helper");
 var SOURCE = 'thethao.vnexpress.net';
 
-router.get('/get-posts/:limit?', function (req, res, next) {
+router.get('/get-posts/:start?/:limit?', function (req, res, next) {
     var limit = 5;
+    var start = 0;
     if (typeof req.params.limit !== 'undefined' && !isNaN(req.params.limit)) {
         limit = req.params.limit;
     }
-    
-    Post.getPosts(limit, function (err, post) {
+
+    if (typeof req.params.start !== 'undefined' && !isNaN(req.params.start)) {
+        start = req.params.start;
+    }
+
+    Post.getPosts(start, limit, function (err, post) {
         if (err) {
             helper.writeErrorLog('Error when getPost for API ');
         }
