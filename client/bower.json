@@ -1,0 +1,21 @@
+{
+  "name": "client",
+  "description": "client newspaper",
+  "main": "",
+  "authors": [
+    "truongbt <d10cn2btt@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/d10cn2btt/newspaper",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/vendors",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
