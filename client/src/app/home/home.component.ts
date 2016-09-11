@@ -15,6 +15,12 @@ declare var $: any;
 export class HomeComponent implements OnInit {
     posts: Post[] = [];
     hashPage: number = 1;
+    /**
+     * When reload page, get all article from start = 0
+     * When click more article, get 5 article from hashPage * 5
+     * @type {boolean}
+     */
+    reloadPage: boolean = true;
     @ViewChild('placeholder', {read: ViewContainerRef}) viewContainerRef;
     private componentFactory: ComponentFactory<any>;
 
@@ -29,8 +35,14 @@ export class HomeComponent implements OnInit {
         }
     }
 
+    /**
+     * When click view more article
+     * Increase hash in url
+     * Set reloadPage = false
+     */
     getMorePosts() {
         this.hashPage++;
+        this.reloadPage = false;
         location.hash = '#' + this.hashPage;
         this.viewContainerRef.createComponent(this.componentFactory, 0);
     }
