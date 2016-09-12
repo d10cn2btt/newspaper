@@ -44,7 +44,10 @@ export class HomeComponent implements OnInit {
         this.hashPage++;
         this.reloadPage = false;
         location.hash = '#' + this.hashPage;
-        this.viewContainerRef.createComponent(this.componentFactory, 0);
+        // Tham số thứ 2 của hàm createComponent
+        // nếu là 0 thì là append ngay phía dưới container
+        // để mặc định như thế này là append phía dưới cùng của đống child
+        this.viewContainerRef.createComponent(this.componentFactory);
     }
 
 }

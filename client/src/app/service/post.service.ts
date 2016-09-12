@@ -7,19 +7,32 @@ import {Post} from '../post';
 
 @Injectable()
 export class PostService {
-    private numberPerPage = 5;
-    private postUrl = 'https://server-newspaper.herokuapp.com/api/get-posts/';
+    private numberPerPage = 1;
+    private DomainUrl = 'https://server-newspaper.herokuapp.com/api';
+    private listPostUrl = this.DomainUrl + '/get-posts/';
+    private detailPostUrl = this.DomainUrl + '/get-post-detail/';
 
     constructor(private http: Http) {
     }
 
-    getPosts(page): Promise<Post[]> {
-        return this.http.get(this.postUrl + this.numberPerPage * page)
-                   .toPromise()
-                   .then(
-                       response => response.json()
-                   )
-                   .catch(this.handleError);
+    getPosts(start, page): Promise<Post[]> {
+        var url = this.listPostUrl + start * this.numberPerPage + "/" + page * this.numberPerPage;
+        return this.http.get(url)
+            .toPromise()
+            .then(
+                response => response.json()
+            )
+            .catch(this.handleError);
+    }
+
+    getDetailPost(idPost): Promise<Post[]> {
+        var url = this.detailPostUrl + idPost;
+        return this.http.get(url)
+            .toPromise()
+            .then(
+                response => response.json()
+            )
+            .catch(this.handleError);
     }
 
     getIdPostFromUrl(url: string) {
