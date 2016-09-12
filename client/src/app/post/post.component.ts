@@ -12,6 +12,7 @@ import {Post} from "../post";
 })
 export class PostComponent implements OnInit {
     post: Post[] = [];
+    testHtml = '<p>abc123</p>';
     
     constructor(private postService: PostService, private route: ActivatedRoute, public router: Router) {
     }
