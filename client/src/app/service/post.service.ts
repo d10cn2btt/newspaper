@@ -7,7 +7,7 @@ import {Post} from '../post';
 
 @Injectable()
 export class PostService {
-    private numberPerPage = 1;
+    private numberPerPage = 5;
     private DomainUrl = 'https://server-newspaper.herokuapp.com/api';
     private listPostUrl = this.DomainUrl + '/get-posts/';
     private detailPostUrl = this.DomainUrl + '/get-post-detail/';

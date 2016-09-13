@@ -3,21 +3,24 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {PostService} from '../service/index';
 import {Post} from "../post";
+import * as moment from 'moment';
 
 @Component({
     moduleId: module.id,
     selector: 'app-post',
     templateUrl: 'post.component.html',
-    styleUrls: ['post.component.css'],
+    // styleUrls: ['post.component.css'],
 })
 export class PostComponent implements OnInit {
     post: Post[] = [];
-    testHtml = '<p>abc123</p>';
-    
+    myMoment = moment;
+    testHtml = '<h3>abc123</h3>';
+
     constructor(private postService: PostService, private route: ActivatedRoute, public router: Router) {
     }
 
     ngOnInit(): void {
+        var time = '2016-09-11T11:18:26.308Z';
         window.scrollTo(0, 0);
 
         this.route.params.forEach((params: Params) => {
@@ -29,7 +32,6 @@ export class PostComponent implements OnInit {
                 this.postService.getDetailPost(idPost)
                     .then(response => {
                         this.post = response;
-                        console.log(this.post);
                     });
             } else {
                 this.router.navigate(['dasboard', {}, {position: (0, 600)}]);

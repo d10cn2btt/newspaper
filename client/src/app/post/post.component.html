@@ -13,13 +13,13 @@
 <div class="store-about-image">
     <img src="{{post.thumb}}" alt="img">
 </div>
-<div class="container">
-    <div class="content">
+<div class="container post-content">
+    <div class="post-header">
         <h3 class="half-bottom">{{post.title}}</h3>
         <p class="news-article-large-text no-bottom">
             <img src="../../assets/images/avt.jpg" alt="img">
-            <em>Posted by <a href="#">Enabled</a>, on <a href="#">January 14, 2016</a></em>
-            <em>in <a href="#">Mobile</a>, <a href="#">Tablet</a>, <a href="#">Technology</a></em>
+            <em>Posted by <span>Administrator</span>, on <span>{{myMoment(post.created_at).format("dddd, D/M/YYYY | HH:mm")}}</span></em>
+            <em>in <span>Mobile</span>, <span>Tablet</span>, <span>Technology</span></em>
         </p>
     </div>
     <div class="decoration-2"></div>
