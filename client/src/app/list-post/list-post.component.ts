@@ -16,7 +16,9 @@ export class ListPostComponent implements OnInit, AfterViewChecked, AfterViewIni
     // @Input() hero: Hero;
     // bên app.component truyền sang biến hero thì bên này cũng phải khai báo biến là hero đẻ nhận
     // @Input('$var$') varAlias: Object;
-    @Input('page') numberPage: number = 1;
+    // @Input('page') numberPage: number = 1;
+    
+    @Input('reloadPage') reloadPage: boolean;
     posts: Post[] = [];
     hashPage: number = 1;
 
@@ -33,9 +35,17 @@ export class ListPostComponent implements OnInit, AfterViewChecked, AfterViewIni
             container: $('#page-content-scroll')
         });
 
-        this.postService.getPosts(this.numberPage)
+        let start, page: number;
+        if (this.reloadPage == true) {
+            start = 0;
+            page = this.hashPage;
+        } else {
+            start = this.hashPage - 1;
+            page = 1;
+        }
+
+        this.postService.getPosts(start, page)
             .then(response => {
-                console.log(response);
                 this.posts = response;
             });
     }
@@ -48,9 +58,7 @@ export class ListPostComponent implements OnInit, AfterViewChecked, AfterViewIni
     }
 
     ngAfterViewInit(): void {
-        console.log('start');
         setTimeout(function () {
-            console.log('run');
             $('body').animate({
                 scrollTop: $(".container").height()
             }, 1000);

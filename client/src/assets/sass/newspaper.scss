@@ -1,3 +1,13 @@
+// =================== style custome framework - start
+em {
+  span {
+    color: #2980b9;
+    font-weight: bold;
+  }
+}
+// style custome framework - end =====================
+
+// =================== style list post - start
 .list-posts {
   .post {
     $imgWidth: 90px;
@@ -32,6 +42,52 @@
     }
   }
 }
+// style list post - end =======================
+
+// ==================== style post detail - start
+.post-content {
+  p {
+    margin-bottom: 10px;
+  }
+
+  table {
+    font-size: 22px;
+    margin: 0 auto 10px;
+    tbody {
+      td {
+        padding: 0;
+        border: none;
+        .Image {
+          color: #333;
+          background: #f5f5f5;
+          padding: 10px;
+          margin: 0;
+          line-height: normal;
+        }
+      }
+      img {
+        border: 0;
+        font-size: 0;
+        line-height: 0;
+        width: 100%;
+      }
+    }
+  }
+
+  .content {
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+  .decoration-2 {
+    margin-bottom: 15px;
+  }
+
+  .post-header, .decoration-2 {
+    margin-bottom: 20px;
+  }
+}
+// style post detail - end ====================
 
 .loading {
   position: fixed;
