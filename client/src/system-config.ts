@@ -10,16 +10,12 @@
 /** Map relative paths to URLs. */
 const map: any = {
     'underscore': 'vendor/underscore/underscore.js',
-    'angular2-auto-scroll': 'vendor/angular2-auto-scroll',
     'moment': 'vendor/moment/moment.js'
 };
 
 /** User packages configuration. */
 const packages: any = {
     'underscore': {
-        format: 'cjs'
-    },
-    'angular2-auto-scroll': {
         format: 'cjs'
     },
     'moment':{

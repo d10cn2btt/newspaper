@@ -1,7 +1,6 @@
 import {Component, OnInit, Input, AfterViewChecked, AfterViewInit} from '@angular/core';
 import {PostService} from '../service/index';
 import {Post} from '../post';
-import {Angular2AutoScroll} from 'angular2-auto-scroll/lib/angular2-auto-scroll.directive';
 declare var $: any;
 
 @Component({
@@ -9,7 +8,6 @@ declare var $: any;
     selector: 'app-list-post',
     templateUrl: 'list-post.component.html',
     styleUrls: ['list-post.component.css'],
-    directives: [Angular2AutoScroll]
 })
 export class ListPostComponent implements OnInit, AfterViewChecked, AfterViewInit {
     // phải khai báo input thì mới nhận được biến hero từ file khác gọi sang
