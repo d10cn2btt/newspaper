@@ -13,5 +13,13 @@
     "typeRoots": [
       "../node_modules/@types"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "files": [
+    "main.ts",
+    "typings.d.ts"
+  ]
 }

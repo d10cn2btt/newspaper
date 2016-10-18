@@ -15,7 +15,8 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "assets/sass/newspaper.scss"
       ],
       "scripts": [],
       "environments": {

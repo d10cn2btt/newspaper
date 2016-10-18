@@ -1,7 +1,7 @@
 import {Component, OnInit, Compiler, ViewContainerRef, ViewChild, ComponentFactory, ComponentFactoryResolver} from '@angular/core';
 import {PostService} from '../service/index';
 import {Post} from '../post';
-import {ListPostComponent} from '../list-post';
+import {ListPostComponent} from '../list-post/list-post.component';
 
 declare var $: any;
 
@@ -22,10 +22,10 @@ export class HomeComponent implements OnInit {
     @ViewChild('placeholder', {read: ViewContainerRef}) viewContainerRef;
     private componentFactory: ComponentFactory<any>;
 
-    constructor(componentFactoryResolver: ComponentFactoryResolver, compiler: Compiler, private postService: PostService) {
-        this.componentFactory = componentFactoryResolver.resolveComponentFactory(ListPostComponent);
-        // this.componentFactory = compiler.compileComponentSync(PostComponent);
-    }
+    // constructor(componentFactoryResolver: ComponentFactoryResolver, compiler: Compiler, private postService: PostService) {
+    //     this.componentFactory = componentFactoryResolver.resolveComponentFactory(ListPostComponent);
+    //     // this.componentFactory = compiler.compileComponentSync(PostComponent);
+    // }
 
     ngOnInit(): void {
         if (location.hash != "" && !isNaN(parseInt(location.hash.replace('#', '')))) {

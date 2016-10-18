@@ -4,10 +4,9 @@ import {Post} from '../post';
 declare var $: any;
 
 @Component({
-    moduleId: module.id,
     selector: 'app-list-post',
-    templateUrl: 'list-post.component.html',
-    styleUrls: ['list-post.component.scss'],
+    templateUrl: './list-post.component.html',
+    styleUrls: ['./list-post.component.scss'],
 })
 export class ListPostComponent implements OnInit, AfterViewChecked, AfterViewInit {
     // phải khai báo input thì mới nhận được biến hero từ file khác gọi sang
@@ -42,17 +41,17 @@ export class ListPostComponent implements OnInit, AfterViewChecked, AfterViewIni
             page = 1;
         }
 
-        // this.postService.getPosts(start, page)
-        //     .then(response => {
-        //         this.posts = response;
-        //     });
+        this.postService.getPosts(start, page)
+            .then(response => {
+                this.posts = response;
+            });
     }
 
     ngAfterViewChecked(): void {
-        // $('body').animate({
-        //     scrollTop: $(".container").height()
-        // }, 2000);
-        // window.scrollTo(0, $(".container").height());
+        $('body').animate({
+            scrollTop: $(".container").height()
+        }, 2000);
+        window.scrollTo(0, $(".container").height());
     }
 
     ngAfterViewInit(): void {

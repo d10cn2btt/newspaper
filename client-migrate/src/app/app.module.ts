@@ -8,7 +8,8 @@ import {HomeComponent} from './home/home.component';
 import {routing} from './app.routing';
 import {PostService} from './service/index';
 import {UrlPipe} from './pipe/index';
-import { PostComponent } from './post/post.component';
+import {PostComponent} from './post/post.component';
+import {ListPostComponent} from './list-post/list-post.component';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { PostComponent } from './post/post.component';
         HomeComponent,
         UrlPipe,
         PostComponent,
+        ListPostComponent,
     ],
     imports: [
         BrowserModule,
