@@ -10,6 +10,8 @@ var crawler = require('./routes/crawler');
 var api = require('./routes/api');
 var mongoose = require('mongoose');
 var config = require('./config');
+var cors = require('cors')
+
 //connect to mlab db newspaper
 mongoose.connect(config.database, function (err) {
     if (err) {
@@ -20,7 +22,13 @@ mongoose.connect(config.database, function (err) {
 });
 
 var app = express();
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
 
+    next();
+}
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -32,6 +40,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors())
+
 
 //cái này dùng để khi truy cập trực tiếp trên url http://localhost:3000/data/output.json
 // app.use('/data', express.static(path.join(__dirname, 'data')));
