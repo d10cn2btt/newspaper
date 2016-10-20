@@ -21,7 +21,7 @@ router.get('/get-posts/:start?/:limit?', function (req, res, next) {
 
     Post.getPosts(start, limit, function (err, post) {
         if (err) {
-            helper.writeErrorLog('Error when getPost for API ');
+            helper.writeErrorLog('Error when getPost for API ' + err);
         }
 
         res.json(post);
@@ -46,6 +46,22 @@ router.get('/get-post-detail/:id', function (req, res, next) {
         helper.writeErrorLog(error);
         res.json(error);
     }
+});
+
+router.get('/get-rd-post/:limit?', function (req, res, next) {
+    var limit = 5;
+
+    if (typeof req.params.limit !== 'undefined' && !isNaN(req.params.limit)) {
+        limit = parseInt(req.params.limit);
+    }
+
+    Post.randomPost(limit, function (err, post) {
+        if (err) {
+            helper.writeErrorLog('Error when get-rd-post for API ' + err);
+        }
+        console.log(post);
+        res.json(post);
+    });
 });
 
 module.exports = router;
