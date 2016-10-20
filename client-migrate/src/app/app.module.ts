@@ -23,11 +23,12 @@ import {ListPostComponent} from './list-post/list-post.component';
         BrowserModule,
         FormsModule,
         HttpModule,
-        routing
+        routing,
     ],
     providers: [
-        PostService
+        PostService,
     ],
+    entryComponents: [ListPostComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {

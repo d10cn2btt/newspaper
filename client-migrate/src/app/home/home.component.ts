@@ -1,6 +1,4 @@
 import {Component, OnInit, Compiler, ViewContainerRef, ViewChild, ComponentFactory, ComponentFactoryResolver} from '@angular/core';
-import {PostService} from '../service/index';
-import {Post} from '../post';
 import {ListPostComponent} from '../list-post/list-post.component';
 
 declare var $: any;
@@ -11,7 +9,6 @@ declare var $: any;
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-    posts: Post[] = [];
     hashPage: number = 1;
     /**
      * When reload page, get all article from start = 0
@@ -19,13 +16,13 @@ export class HomeComponent implements OnInit {
      * @type {boolean}
      */
     reloadPage: boolean = true;
-    @ViewChild('placeholder', {read: ViewContainerRef}) viewContainerRef;
+    @ViewChild('placeholder', {read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
     private componentFactory: ComponentFactory<any>;
 
-    // constructor(componentFactoryResolver: ComponentFactoryResolver, compiler: Compiler, private postService: PostService) {
-    //     this.componentFactory = componentFactoryResolver.resolveComponentFactory(ListPostComponent);
-    //     // this.componentFactory = compiler.compileComponentSync(PostComponent);
-    // }
+    constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+        this.componentFactory = componentFactoryResolver.resolveComponentFactory(ListPostComponent);
+        // this.componentFactory = compiler.compileComponentSync(ListPostComponent);
+    }
 
     ngOnInit(): void {
         if (location.hash != "" && !isNaN(parseInt(location.hash.replace('#', '')))) {

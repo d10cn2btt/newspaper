@@ -48,10 +48,10 @@ export class ListPostComponent implements OnInit, AfterViewChecked, AfterViewIni
     }
 
     ngAfterViewChecked(): void {
-        $('body').animate({
-            scrollTop: $(".container").height()
-        }, 2000);
-        window.scrollTo(0, $(".container").height());
+        // $('body').animate({
+        //     scrollTop: $(".container").height()
+        // }, 2000);
+        // window.scrollTo(0, $(".container").height());
     }
 
     ngAfterViewInit(): void {
