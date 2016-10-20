@@ -56,3 +56,8 @@ module.exports.checkExists = function (query, callback) {
 module.exports.createPost = function (newPost, callback) {
     newPost.save(callback);
 };
+
+module.exports.randomPost = function (limit, callback) {
+    var query = {random_point: {$near: [Math.random(), 0]}};
+    postObject.find(query, callback).select('title url short_des thumb id_post created_at');
+};
