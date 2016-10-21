@@ -33,7 +33,6 @@ module.exports = function (defaults) {
             'rxjs/**/*.+(js|js.map)',
             '@angular/**/*.+(js|js.map)',
             'underscore/underscore.js',
-            'angular2-auto-scroll/lib/angular2-auto-scroll.directive.js',
             'moment/moment.js'
         ]
     });

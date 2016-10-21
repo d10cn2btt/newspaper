@@ -1,0 +1,17 @@
+<div class="content-strip">
+    <div class="strip-content">
+        <h4>Tin thể thao</h4>
+    </div>
+    <div class="overlay"></div>
+    <img class="preload-image" data-original="../assets/images/pictures/1.jpg" alt="img">
+</div>
+
+<div class="container">
+    <div class="row list-posts">
+        <app-list-post [reloadPage]="reloadPage"></app-list-post>
+        <div #placeholder></div>
+    </div>
+    <button id="show-more" (click)="getMorePosts()" class="button button-center button-blue button-fullscreen">More
+        news
+    </button>
+</div>
