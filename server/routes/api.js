@@ -3,28 +3,61 @@
  */
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 
 var Post = require('../model/post');
 var helper = require("../helper/helper");
-var SOURCE = 'thethao.vnexpress.net';
+var paramPath = "data/crawler_parameter.json";
+var paramCrawler = fs.readFileSync(paramPath);
+paramCrawler = JSON.parse(paramCrawler).vnexpress;
+
+var SOURCE = paramCrawler.SOURCE;
+var statusErr = 'error';
+var statusSuccess = 'success';
+var messErr = '';
+var responseFormat = {
+    "status": "",
+    "messErr": "",
+    "data": ""
+};
 
 router.get('/get-posts/:start?/:limit?', function (req, res, next) {
     var limit = 5;
     var start = 0;
-    if (typeof req.params.limit !== 'undefined' && !isNaN(req.params.limit)) {
-        limit = parseInt(req.params.limit);
-    }
-
     if (typeof req.params.start !== 'undefined' && !isNaN(req.params.start)) {
         start = parseInt(req.params.start);
+    } else {
+        messErr = 'First parameter must be number and required!';
+        handleError(res, messErr, 400);
+        return;
+    }
+
+    if (typeof req.params.limit !== 'undefined' && !isNaN(req.params.limit)) {
+        limit = parseInt(req.params.limit);
+    } else {
+        messErr = 'Second parameter must be number and required!';
+        handleError(res, messErr, 400);
+        return;
     }
 
     Post.getPosts(start, limit, function (err, post) {
         if (err) {
-            helper.writeErrorLog('Error when getPost for API ' + err);
+            messErr = 'Error when get-posts ' + err;
+            handleError(res, messErr, 500);
+            return;
         }
 
-        res.json(post);
+        if (post == "") {
+            messErr = 'No more post!';
+            handleError(res, messErr, 500);
+            return;
+        }
+
+        // set response
+        responseFormat.status = statusSuccess;
+        responseFormat.data = post;
+        responseFormat.messErr = '';
+        res.json(responseFormat);
     });
 });
 
@@ -35,16 +68,33 @@ router.get('/get-post-detail/:id', function (req, res, next) {
             id_post: idPost,
             source: SOURCE
         };
+
         Post.checkExists(query, function (error, post) {
             if (error) {
-                helper.writeErrorLog("[API] Error when get detail" + error);
+                messErr = 'Error when get post detail ' + err;
+                handleError(res, messErr, 500);
+                return;
             }
-            res.json(post);
+
+            if (post == null) {
+                messErr = 'No post has id ' + idPost;
+                handleError(res, messErr, 404);
+                return;
+            }
+
+            // inscrement post's read number
+            post.number_read = post.number_read + 1;
+            post.save();
+
+            // set response
+            responseFormat.status = statusSuccess;
+            responseFormat.data = post;
+            responseFormat.messErr = '';
+            res.json(responseFormat);
         });
     } else {
-        var error = "Param was not correct";
-        helper.writeErrorLog(error);
-        res.json(error);
+        messErr = 'Parameter must be number!';
+        handleError(res, messErr, 400);
     }
 });
 
@@ -53,15 +103,45 @@ router.get('/get-rd-post/:limit?', function (req, res, next) {
 
     if (typeof req.params.limit !== 'undefined' && !isNaN(req.params.limit)) {
         limit = parseInt(req.params.limit);
+    } else {
+        messErr = 'First parameter must be number and required!';
+        handleError(res, messErr, 400);
+        return;
     }
 
     Post.randomPost(limit, function (err, post) {
         if (err) {
-            helper.writeErrorLog('Error when get-rd-post for API ' + err);
+            messErr = 'Error when get-rd-posts ' + err;
+            handleError(res, messErr, 500);
+            return;
         }
 
-        res.json(post);
+        if (post == "") {
+            messErr = 'No more post!';
+            handleError(res, messErr, 500);
+            return;
+        }
+
+        // set response
+        responseFormat.status = statusSuccess;
+        responseFormat.data = post;
+        responseFormat.messErr = '';
+        res.json(responseFormat);
     });
 });
+
+function handleError(res, messErr, statusCode) {
+    // write log
+    helper.writeErrorLog('[API] ' + messErr);
+
+    // set response
+    responseFormat.status = statusErr;
+    responseFormat.messErr = messErr;
+    responseFormat.data = "";
+
+    // send response
+    res.statusCode = statusCode;
+    res.json(responseFormat);
+}
 
 module.exports = router;

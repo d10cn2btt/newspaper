@@ -1,7 +1,9 @@
+// lib
 var express = require('express');
 var router = express.Router();
 var app = express();
 
+// module
 var fs = require('fs');
 var request = require('request');
 var rp = require('request-promise');
@@ -10,41 +12,44 @@ var _ = require("underscore");
 var entities = require("entities");
 var helper = require("../helper/helper");
 var Post = require('../model/post');
-var SOURCE = 'thethao.vnexpress.net';
 var moment = require('moment');
 
-router.get('/testGetContent', function (req, res, next) {
-    // var urlItem = 'http://thethao.vnexpress.net/photo/hau-truong/ve-dep-cua-cac-wags-truoc-tran-derby-manchester-3465112.html';
-    var urlItem = 'http://thethao.vnexpress.net/tin-tuc/cac-giai-khac/than-dong-sanches-ra-mat-nhat-nhoa-bayern-thang-nhoc-o-vong-hai-3465867.html';
-    promiseContent = getContent(urlItem);
-    promiseContent.then(function (resdata) {
-        resdata = resdata.replace(/[\n\t\r]/g, "");
-        res.json(resdata);
-    });
-});
+// param crawler
+var paramPath = "data/crawler_parameter.json";
+var paramCrawler = fs.readFileSync(paramPath);
+paramCrawler = JSON.parse(paramCrawler).vnexpress;
+
+var SOURCE = paramCrawler.SOURCE;
+var paramUrl = paramCrawler.url;
+var paramPosts = paramCrawler.listPost.post;
+var paramUrlPostDetail = paramCrawler.listPost.urlPostDetail;
+var paramPostTitle = paramCrawler.post.title;
+var paramPostShortdes = paramCrawler.post.shortDes;
+var paramPostThumb = paramCrawler.post.thumb;
+var paramPostPhoto = paramCrawler.post.postPhoto;
+var paramPostContent = paramCrawler.post.postContent;
 
 router.get('/getData', function (req, res, next) {
-    url = 'http://thethao.vnexpress.net/';
-    request(url, function (error, response, html) {
+    request(paramUrl, function (error, response, html) {
         if (!error) {
             var $ = cheerio.load(html);
             var data = new Array();
             var total = 0;
             var count = 0;
-            $("#news_home > li").each(function (index) {
-                total++;
-                console.log("total" + total);
+            $(paramPosts).each(function (index) {
                 var json = {id_post: "", title: "", url: "", short_des: "", thumb: "", content: "", source: SOURCE};
-                var urlItem = $(this).find("h3.title_news a.txt_link").attr("href");
+                var urlItem = $(this).find(paramUrlPostDetail).attr("href");
                 var checkExist = false;
-                //đề phòng trường hợp thẻ rỗng
+                // remove div has no content
                 if (!(typeof urlItem === "undefined")) {
+                    total++;
+                    console.log("total" + total);
                     json.id_post = helper.getIdFormUrl(urlItem);
                     //trim() - remove \r\n and space
-                    json.title = $(this).find("h3.title_news").text().trim();
+                    json.title = $(this).find(paramPostTitle).text().trim();
                     json.url = encodeURI(urlItem);
-                    json.short_des = $(this).find(".news_lead").text().trim();
-                    json.thumb = $(this).find(".thumb img").attr('src');
+                    json.short_des = $(this).find(paramPostShortdes).text().trim();
+                    json.thumb = $(this).find(paramPostThumb).attr('src');
                     var query = {
                         id_post: json.id_post,
                         source: SOURCE
@@ -63,7 +68,7 @@ router.get('/getData', function (req, res, next) {
                                 }
                                 count++;
                                 console.log("count" + count);
-                                if (count == total - 1) {
+                                if (count == total) {
                                     res.json(data);
                                     insertPost(data, res);
                                 }
@@ -74,7 +79,7 @@ router.get('/getData', function (req, res, next) {
                         } else {
                             helper.writeErrorLog("Post already exists " + JSON.stringify(query));
                             count++;
-                            if (count == total - 1) {
+                            if (count == total) {
                                 res.json(data);
                                 insertPost(data, res);
                             }
@@ -110,7 +115,6 @@ function insertPost(data, res) {
     data = JSON.stringify(data, null, 4);
     var writable = fs.createWriteStream('./data/output.json');
     writable.write(data);
-    // res.send(data);
 }
 
 function getContent(url) {
@@ -125,12 +129,11 @@ function getContent(url) {
             var contentElement = "";
             if ($("#article_content").html() != null) {
                 // article photos
-                contentElement = "#article_content";
+                contentElement = paramPostPhoto;
             } else {
-                contentElement = ".fck_detail";
+                contentElement = paramPostContent;
             }
 
-            // Process html like you would with jQuery...
             return $(contentElement).html().trim();
             // return entities.decodeHTML(content).trim();
         })
@@ -139,9 +142,5 @@ function getContent(url) {
             return "Error when get content : " + err;
         });
 }
-
-router.get('/test', function (req, res, next) {
-    res.send("test");
-});
 
 module.exports = router;

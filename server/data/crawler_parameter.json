@@ -1,0 +1,17 @@
+{
+  "vnexpress": {
+    "SOURCE": "thethao.vnexpress.net",
+    "url": "http://thethao.vnexpress.net/",
+    "listPost": {
+      "post": "#news_home > li",
+      "urlPostDetail": "h3.title_news a.txt_link"
+    },
+    "post": {
+      "title": "h3.title_news",
+      "shortDes": ".news_lead",
+      "thumb": ".thumb img",
+      "postPhoto": "#article_content",
+      "postContent": ".fck_detail"
+    }
+  }
+}
