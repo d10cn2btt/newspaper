@@ -59,7 +59,7 @@ router.get('/get-rd-post/:limit?', function (req, res, next) {
         if (err) {
             helper.writeErrorLog('Error when get-rd-post for API ' + err);
         }
-        console.log(post);
+
         res.json(post);
     });
 });

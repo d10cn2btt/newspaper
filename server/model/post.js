@@ -58,6 +58,8 @@ module.exports.createPost = function (newPost, callback) {
 };
 
 module.exports.randomPost = function (limit, callback) {
-    var query = {random_point: {$near: [Math.random(), 0]}};
-    postObject.find(query, callback).select('title url short_des thumb id_post created_at');
+    postObject.count({}, function( err, count){
+        var r = Math.floor(Math.random() * count);
+        postObject.find(callback).select('title url short_des thumb id_post created_at').skip(r).limit(limit);
+    });
 };
