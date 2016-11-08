@@ -16,6 +16,7 @@ export class ListPostComponent implements OnInit, AfterViewChecked, AfterViewIni
     // @Input('page') numberPage: number = 1;
     
     @Input('reloadPage') reloadPage: boolean;
+    @Input('listRandom') randomPost: boolean;
     posts: Post[] = [];
     hashPage: number = 1;
 
@@ -26,25 +27,34 @@ export class ListPostComponent implements OnInit, AfterViewChecked, AfterViewIni
         if (location.hash != "" && !isNaN(parseInt(location.hash.replace('#', '')))) {
             this.hashPage = parseInt(location.hash.replace('#', ''));
         }
-        $('.preload-image').lazyload({
-            threshold: 100,
-            effect: 'fadeIn',
-            container: $('#page-content-scroll')
-        });
 
-        let start, page: number;
-        if (this.reloadPage == true) {
-            start = 0;
-            page = this.hashPage;
+        if (this.randomPost == true) {
+            console.log('random post');
+            this.postService.getRandomPost(5)
+                .then(response => {
+                    this.posts = response;
+                });
         } else {
-            start = this.hashPage - 1;
-            page = 1;
-        }
-
-        this.postService.getPosts(start, page)
-            .then(response => {
-                this.posts = response;
+            $('.preload-image').lazyload({
+                threshold: 100,
+                effect: 'fadeIn',
+                container: $('#page-content-scroll')
             });
+
+            let start, page:number;
+            if (this.reloadPage == true) {
+                start = 0;
+                page = this.hashPage;
+            } else {
+                start = this.hashPage - 1;
+                page = 1;
+            }
+
+            this.postService.getPosts(start, page)
+                .then(response => {
+                    this.posts = response;
+                });
+        }
     }
 
     ngAfterViewChecked(): void {

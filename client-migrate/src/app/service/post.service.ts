@@ -10,6 +10,7 @@ export class PostService {
     private numberPerPage = 5;
     private DomainUrl = 'https://server-newspaper.herokuapp.com/api';
     private listPostUrl = this.DomainUrl + '/get-posts/';
+    private randomPostUrl = this.DomainUrl + '/get-rd-post/';
     private detailPostUrl = this.DomainUrl + '/get-post-detail/';
 
     constructor(private http: Http) {
@@ -20,7 +21,17 @@ export class PostService {
         return this.http.get(url)
             .toPromise()
             .then(
-                response => response.json()
+                response => response.json().data
+            )
+            .catch(this.handleError);
+    }
+    
+    getRandomPost(limit): Promise<Post[]> {
+        var url = this.randomPostUrl + limit;
+        return this.http.get(url)
+            .toPromise()
+            .then(
+                response => response.json().data
             )
             .catch(this.handleError);
     }
@@ -30,7 +41,7 @@ export class PostService {
         return this.http.get(url)
             .toPromise()
             .then(
-                response => response.json()
+                response => response.json().data
             )
             .catch(this.handleError);
     }
