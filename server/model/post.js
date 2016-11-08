@@ -56,3 +56,10 @@ module.exports.checkExists = function (query, callback) {
 module.exports.createPost = function (newPost, callback) {
     newPost.save(callback);
 };
+
+module.exports.randomPost = function (limit, callback) {
+    postObject.count({}, function( err, count){
+        var r = Math.floor(Math.random() * count);
+        postObject.find(callback).select('title url short_des thumb id_post created_at').skip(r).limit(limit);
+    });
+};
