@@ -14,8 +14,11 @@ export class ListPostComponent implements OnInit, AfterViewChecked, AfterViewIni
     // bên app.component truyền sang biến hero thì bên này cũng phải khai báo biến là hero đẻ nhận
     // @Input('$var$') varAlias: Object;
     // @Input('page') numberPage: number = 1;
-    
+
+    // use when click view more post
     @Input('reloadPage') reloadPage: boolean;
+
+    // use when get random post => no scroll top
     @Input('listRandom') randomPost: boolean;
     posts: Post[] = [];
     hashPage: number = 1;
@@ -65,10 +68,12 @@ export class ListPostComponent implements OnInit, AfterViewChecked, AfterViewIni
     }
 
     ngAfterViewInit(): void {
-        setTimeout(function () {
-            $('body').animate({
-                scrollTop: $(".container").height()
-            }, 1000);
-        }, 500);
+        if (this.randomPost !== true) {
+            setTimeout(function () {
+                $('body').animate({
+                    scrollTop: $(".container").height()
+                }, 1000);
+            }, 500);
+        }
     }
 }

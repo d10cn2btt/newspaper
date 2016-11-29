@@ -14,13 +14,11 @@ import * as moment from 'moment';
 export class PostComponent implements OnInit {
     post: Post[] = [];
     myMoment = moment;
-    testHtml = '<h3>abc123</h3>';
 
     constructor(private postService: PostService, private route: ActivatedRoute, public router: Router) {
     }
 
     ngOnInit(): void {
-        var time = '2016-09-11T11:18:26.308Z';
         window.scrollTo(0, 0);
 
         this.route.params.forEach((params: Params) => {
